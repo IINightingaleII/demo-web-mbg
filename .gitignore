@@ -1,0 +1,20 @@
+# Lingkungan
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Diagram tidak ikut repo
+diagrams/
+
+# Checkpoint model (besar)
+models/*
+!models/.gitkeep
+
+# Lain-lain
+.streamlit/secrets.toml
+.env
+
+# Catatan uji lokal
+VERIFIKASI.md

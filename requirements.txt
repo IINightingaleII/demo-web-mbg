@@ -1,0 +1,6 @@
+streamlit>=1.50,<2
+pandas>=2.2,<3
+numpy>=1.26,<3
+emoji>=2.14,<3
+torch>=2.5,<3
+transformers>=4.46,<5
