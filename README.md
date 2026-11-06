@@ -20,16 +20,6 @@ Windows PowerShell:
 .\.venv\Scripts\python.exe -m streamlit run app.py --server.address 127.0.0.1 --browser.gatherUsageStats false --theme.primaryColor "#8A5B0A"
 ```
 
-Linux/macOS:
-
-```bash
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python -m streamlit run app.py --server.address 127.0.0.1 --browser.gatherUsageStats false --theme.primaryColor '#8A5B0A'
-```
-
-Alternatif aktivasi Windows: `.venv\Scripts\activate` pada cmd atau `.\.venv\Scripts\Activate.ps1` pada PowerShell. Buka alamat lokal yang dicetak Streamlit, biasanya `http://127.0.0.1:8501`. Tekan Ctrl+C untuk menghentikan. Alamat loopback membatasi akses ke komputer sendiri. Telemetri Streamlit dinonaktifkan pada perintah tersebut.
-
 ## Struktur
 
 ```text
@@ -46,7 +36,7 @@ demo-web/
 
 `.venv` dan `__pycache__` adalah artefak lingkungan lokal, bukan modul aplikasi. Tidak ada login, database, scraping, training, atau deploy cloud.
 
-## Cara memakai
+## Cara pakai
 
 - Pilih **Teks tunggal**. Isi teks, tambahkan unggahan induk bila tersedia, lalu tekan **Prediksi**. Dua keluaran menampilkan label dan probabilitas semua kelas. Expander menampilkan input setelah pra-pemrosesan.
 - Pilih **Unggah CSV**. Gunakan UTF-8, pemisah koma, header `text` dan `parent_text` opsional. Unggah `sample_input.csv`, tekan **Prediksi CSV**, periksa tabel dan distribusi, lalu **Unduh CSV hasil**.
@@ -72,7 +62,7 @@ Batas operasional demo: 10.000 karakter per kolom setelah pra-pemrosesan, dengan
 - Keluaran menambah label, lima kolom probabilitas, teks pra-pemrosesan, status, catatan, dan `model_status=dummy_simulasi`. File unduhan memakai UTF-8 BOM untuk membantu pembacaan di Excel.
 - CSV mempertahankan teks asli. Untuk data tak tepercaya, impor melalui **Data > From Text/CSV** dan set kolom teks sebagai **Text**. Jangan membuka atau menjalankan teks yang diawali `=`, `+`, `-`, atau `@` sebagai rumus. Tanda kutip CSV bukan perlindungan formula injection.
 
-## Mengganti dummy dengan model penelitian
+## Ganti dummy dengan model yang sudah jadi nanti.
 
 1. Sediakan checkpoint, tokenizer, pemetaan label, dan konfigurasi dari eksperimen terpilih dalam `models/`, atau set environment variable `MODEL_DIR`. Path default dihitung relatif terhadap `model_loader.py`, bukan lokasi Windows absolut.
 2. Implementasikan adapter dalam `model_loader.py`: shared IndoBERTweet encoder, head sentimen tiga kelas, head sarkasme dua kelas; muat pada CPU, `eval()`, dan `inference_mode()`. Terapkan softmax pada masing-masing logits dan pertahankan kontrak empat key.
@@ -92,16 +82,7 @@ Batas operasional demo: 10.000 karakter per kolom setelah pra-pemrosesan, dengan
 6. Unduh hasil. Impor sebagai teks di Excel. Periksa jumlah/urutan baris, teks asli, sel kosong, dan jumlah probabilitas tiap tugas mendekati satu untuk baris berhasil.
 7. Uji layar sempit, tema terang/gelap, keyboard Tab/Enter, pembuka sidebar, dan unduhan. Jangan menyimpulkan akurasi model dari dummy.
 
-## Keputusan tampilan
 
-Arah: alat sidang akademik yang mengutamakan input, provenance, dan hasil. ENERGY 1 / RHYTHM 1 / MOTION 1.
+Catatan Higen 
 
-- Judul serif membantu pemisahan judul akademik dari formulir; badan Segoe UI/Arial dipilih untuk keterbacaan dan ketersediaan lokal.
-- Accent amber gelap menandai aksi utama; bukan dekorasi menyeluruh. Tema bawaan dipertahankan agar kontrol terang/gelap tetap berfungsi.
-- Sidebar dipakai karena spesifikasi menempatkan dua mode dan status model di sana, bukan untuk meniru dashboard.
-- Dua blok hasil setara mencerminkan dua tugas klasifikasi; pada layar sempit keduanya bertumpuk. Tidak ada statistik pengisi atau animasi dekoratif.
-- Warning simulasi tetap dekat input. Disclaimer di area utama tetap terlihat ketika sidebar tertutup pada ponsel.
-
-## Status kerangka
-
-Repo ini hanya kerangka web. Model IndoBERTweet MTL belum dilatih; setelah checkpoint tersedia, ikuti bagian *Mengganti dummy dengan model penelitian* di atas. Folder `models/` sengaja tidak ikut di-commit karena ukuran checkpoint besar.
+Ini cuma kerangka web. Model IndoBERTweet MTL belum ada dilatih, jadi teks indeks (atau induk pos) bisa aja nanti dihapus karena masih belum jelas hasil modelnya nanti gimana, karena modelnya aja belum dikerjain; setelah checkpoint nanti ada, ikuti bagian *Mengganti dummy dengan model penelitian* di atas. Folder `models/` gak ikut di commit, nanti buat sendiri aja, takut gak muat dimasukin ke github nanti kalo use casenya dependent on repo.
